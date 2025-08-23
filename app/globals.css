@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 @variant dark (.dark &);
 
@@ -59,4 +60,16 @@
 
 @utility hero-bg {
   background-image: url('/images/hero-background.png');
+}
+
+.cl-providerIcon__github {
+  filter: invert(1);
+}
+
+.cl-badge {
+  color: #ffffff68;
+}
+
+.cl-internal-z2weye:hover {
+  color: #ffffff;
 }
