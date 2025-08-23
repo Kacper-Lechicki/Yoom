@@ -41,6 +41,14 @@
   }
 }
 
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
+
 @utility accordion-down {
   animation: accordion-down 0.2s ease-out;
 }
