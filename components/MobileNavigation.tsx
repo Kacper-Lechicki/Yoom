@@ -33,11 +33,8 @@ const MobileNavigation = () => {
         </SheetTrigger>
 
         <SheetContent side="left" className="border-none bg-dark-1 p-6">
-          <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
-
-          <SheetDescription className="sr-only">
-            Mobile navigation menu with links to main sections
-          </SheetDescription>
+          <SheetTitle className="sr-only" />
+          <SheetDescription className="sr-only" />
 
           <Link href="/" className="flex items-center gap-3">
             <Image
