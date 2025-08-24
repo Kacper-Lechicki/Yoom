@@ -4,6 +4,9 @@ import './globals.css';
 
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from '@/components/ui/sonner';
+
+import yoomLogoIcon from '@/public/icons/yoom-logo.svg';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,7 +33,7 @@ export default function RootLayout({
             fontSize: '14px',
           },
           layout: {
-            logoImageUrl: '/icons/yoom-logo.svg',
+            logoImageUrl: yoomLogoIcon,
             socialButtonsVariant: 'iconButton',
           },
           elements: {
@@ -43,7 +46,10 @@ export default function RootLayout({
           },
         }}
       >
-        <body className={`${inter.className} bg-dark-2`}>{children}</body>
+        <body className={`${inter.className} bg-dark-2`}>
+          {children}
+          <Toaster />
+        </body>
       </ClerkProvider>
     </html>
   );
