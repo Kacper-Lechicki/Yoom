@@ -4,19 +4,21 @@ import React from 'react';
 import MobileNavigation from './MobileNavigation';
 import { SignedIn, UserButton } from '@clerk/nextjs';
 
+import logoIcon from '@/public/icons/logo.svg';
+
 const Navbar = () => {
   return (
-    <nav className="flex-between fixed z-50 w-full bg-dark-1 px-6 py-4 lg:px-10">
+    <nav className="flex-between fixed z-50 w-full bg-dark-1 px-6 py-4 lg:px-10 border-b-4 border-b-dark-2">
       <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/icons/logo.svg"
-          width={32}
-          height={32}
+          src={logoIcon}
+          width={24}
+          height={24}
           alt="yoom logo"
           className="max-sm:size-10"
         />
 
-        <p className="text-[26px] font-extrabold text-white max-sm:hidden">
+        <p className="text-[20px] font-extrabold text-white max-sm:hidden">
           Yoom
         </p>
       </Link>

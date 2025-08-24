@@ -16,6 +16,9 @@ import { SIDEBAR_LINKS } from '@/constants';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
+import hamburgerIcon from '@/public/icons/hamburger.svg';
+import logoIcon from '@/public/icons/logo.svg';
+
 const MobileNavigation = () => {
   const pathname = usePathname();
 
@@ -24,7 +27,7 @@ const MobileNavigation = () => {
       <Sheet>
         <SheetTrigger asChild>
           <Image
-            src="/icons/hamburger.svg"
+            src={hamburgerIcon}
             width={36}
             height={36}
             alt="hamburger icon"
@@ -38,7 +41,7 @@ const MobileNavigation = () => {
 
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/icons/logo.svg"
+              src={logoIcon}
               width={32}
               height={32}
               alt="yoom logo"
@@ -68,7 +71,7 @@ const MobileNavigation = () => {
                         )}
                       >
                         <Image
-                          src={link.imageUrl}
+                          src={link.image}
                           alt={link.label}
                           width={20}
                           height={20}

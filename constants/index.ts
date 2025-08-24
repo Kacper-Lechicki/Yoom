@@ -1,32 +1,39 @@
+import homeIcon from '@/public/icons/Home.svg';
+import upcomingIcon from '@/public/icons/upcoming.svg';
+import previousIcon from '@/public/icons/previous.svg';
+import videoIcon from '@/public/icons/Video.svg';
+import addPersonalIcon from '@/public/icons/add-personal.svg';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+
 export type SidebarLink = {
-  imageUrl: string;
+  image: StaticImport;
   route: string;
   label: string;
 };
 
 export const SIDEBAR_LINKS: SidebarLink[] = [
   {
-    imageUrl: '/icons/Home.svg',
+    image: homeIcon,
     route: '/',
     label: 'Home',
   },
   {
-    imageUrl: '/icons/upcoming.svg',
+    image: upcomingIcon,
     route: '/upcoming',
     label: 'Upcoming',
   },
   {
-    imageUrl: '/icons/previous.svg',
+    image: previousIcon,
     route: '/previous',
     label: 'Previous',
   },
   {
-    imageUrl: '/icons/Video.svg',
+    image: videoIcon,
     route: '/recordings',
     label: 'Recordings',
   },
   {
-    imageUrl: '/icons/add-personal.svg',
+    image: addPersonalIcon,
     route: '/personal-room',
     label: 'Personal Room',
   },
