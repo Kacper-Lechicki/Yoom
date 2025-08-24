@@ -1,0 +1,107 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+'use client';
+
+import { useGetCalls } from '@/hooks/useGetCalls';
+import { Call, CallRecording } from '@stream-io/video-react-sdk';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import MeetingCard from './MeetingCard';
+
+import previousIcon from '@/public/icons/previous.svg';
+import upcomingIcon from '@/public/icons/upcoming.svg';
+import recordingsIcon from '@/public/icons/recordings.svg';
+import playIcon from '@/public/icons/play.svg';
+
+type CallListProps = {
+  type: 'ended' | 'upcoming' | 'recordings';
+};
+
+const CallList = ({ type }: CallListProps) => {
+  const { endedCalls, upcomingCalls, callRecordings, isLoading } =
+    useGetCalls();
+
+  const router = useRouter();
+
+  const [recordings, setRecordings] = useState<CallRecording[]>([]);
+
+  const getCalls = () => {
+    switch (type) {
+      case 'ended':
+        return endedCalls;
+
+      case 'upcoming':
+        return upcomingCalls;
+
+      case 'recordings':
+        return recordings;
+
+      default:
+        break;
+    }
+  };
+
+  const getNoCallsMessage = () => {
+    switch (type) {
+      case 'ended':
+        return 'No previous calls';
+
+      case 'upcoming':
+        return 'No upcoming calls';
+
+      case 'recordings':
+        return 'No recordings';
+
+      default:
+        break;
+    }
+  };
+
+  const calls = getCalls();
+  const noCallsMessage = getNoCallsMessage();
+
+  return (
+    <div className="grid grid-cols-1 gap-5 2xl:grid-cols-2">
+      {calls?.length ? (
+        calls.map((meeting: Call | CallRecording) => (
+          <MeetingCard
+            key={(meeting as Call).id}
+            icon={
+              type === 'ended'
+                ? previousIcon
+                : type === 'upcoming'
+                ? upcomingIcon
+                : recordingsIcon
+            }
+            title={
+              (meeting as Call).state.custom.description.substring(0, 30) ||
+              'No description'
+            }
+            date={
+              (meeting as Call).state.startsAt?.toLocaleString() ||
+              (meeting as Call).start_time?.toLocaleString()
+            }
+            isPreviousMeeting={type === 'ended'}
+            buttonIcon1={type === 'recordings' ? playIcon : undefined}
+            handleClick={
+              type === 'recordings'
+                ? () => router.push(`${meeting.url}`)
+                : () => router.push(`/meeting/${meeting.id}`)
+            }
+            link={
+              type === 'recordings'
+                ? meeting.url
+                : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`
+            }
+            buttonText={type === 'recordings' ? 'Play' : 'Start'}
+          />
+        ))
+      ) : (
+        <h1>{noCallsMessage}</h1>
+      )}
+    </div>
+  );
+};
+
+export default CallList;

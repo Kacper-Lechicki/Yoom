@@ -12,13 +12,13 @@ const Navbar = () => {
       <Link href="/" className="flex items-center gap-3">
         <Image
           src={logoIcon}
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           alt="yoom logo"
           className="max-sm:size-10"
         />
 
-        <p className="text-[20px] font-extrabold text-white max-sm:hidden">
+        <p className="text-[24px] font-extrabold text-white max-sm:hidden">
           Yoom
         </p>
       </Link>
