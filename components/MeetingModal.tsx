@@ -54,6 +54,8 @@ const MeetingModal = ({
             {title}
           </h1>
 
+          {children}
+
           <Button
             className="bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0"
             onClick={handleClick}

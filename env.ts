@@ -13,6 +13,10 @@ const envSchema = z.object({
   NEXT_PUBLIC_STREAM_API_KEY: z.string(),
   STREAM_SECRET_KEY: z.string(),
 
+  // BASE URL
+
+  NEXT_PUBLIC_BASE_URL: z.string(),
+
   NODE_ENV: z
     .enum(['development', 'test', 'production'])
     .default('development'),
