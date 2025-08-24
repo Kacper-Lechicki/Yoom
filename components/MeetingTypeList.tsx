@@ -125,7 +125,7 @@ const MeetingTypeList = () => {
           title="Create Meeting"
           handleClick={createMeeting}
         >
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 mb-5">
             <div className="flex flex-col gap-2.5">
               <label className="text-base text-normal leading-[22px] text-sky-2">
                 Add a description
