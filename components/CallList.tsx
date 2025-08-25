@@ -6,13 +6,14 @@
 import { useGetCalls } from '@/hooks/useGetCalls';
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MeetingCard from './MeetingCard';
 
 import previousIcon from '@/public/icons/previous.svg';
 import upcomingIcon from '@/public/icons/upcoming.svg';
 import recordingsIcon from '@/public/icons/recordings.svg';
 import playIcon from '@/public/icons/play.svg';
+import { toast } from 'sonner';
 
 type CallListProps = {
   type: 'ended' | 'upcoming' | 'recordings';
@@ -58,15 +59,37 @@ const CallList = ({ type }: CallListProps) => {
     }
   };
 
+  useEffect(() => {
+    const fetchRecordings = async () => {
+      try {
+        const callData = await Promise.all(
+          callRecordings.map((meeting) => meeting.queryRecordings()),
+        );
+        const recordings = callData
+          .filter((call) => call.recordings.length > 0)
+          .flatMap((call) => call.recordings);
+
+        setRecordings(recordings);
+      } catch (error) {
+        toast('Try again later');
+        console.error(error);
+      }
+    };
+
+    if (type === 'recordings') {
+      fetchRecordings();
+    }
+  }, [type, callRecordings]);
+
   const calls = getCalls();
   const noCallsMessage = getNoCallsMessage();
 
   return (
     <div className="grid grid-cols-1 gap-5 2xl:grid-cols-2">
       {calls?.length ? (
-        calls.map((meeting: Call | CallRecording) => (
+        calls.map((meeting: Call | CallRecording, index) => (
           <MeetingCard
-            key={(meeting as Call).id}
+            key={`${(meeting as Call).id}-${index}`}
             icon={
               type === 'ended'
                 ? previousIcon
@@ -75,11 +98,12 @@ const CallList = ({ type }: CallListProps) => {
                 : recordingsIcon
             }
             title={
-              (meeting as Call).state.custom.description.substring(0, 30) ||
+              (meeting as Call)?.state?.custom?.description?.substring(0, 30) ||
+              meeting?.filename?.substring(0, 20) ||
               'No description'
             }
             date={
-              (meeting as Call).state.startsAt?.toLocaleString() ||
+              (meeting as Call).state?.startsAt?.toLocaleString() ||
               (meeting as Call).start_time?.toLocaleString()
             }
             isPreviousMeeting={type === 'ended'}
