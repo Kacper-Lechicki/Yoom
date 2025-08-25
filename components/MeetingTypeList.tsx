@@ -16,6 +16,7 @@ import joinMeetingIcon from '@/public/icons/join-meeting.svg';
 import checkedIcon from '@/public/icons/checked.svg';
 import copyIcon from '@/public/icons/copy.svg';
 import { Textarea } from './ui/textarea';
+import { Input } from './ui/input';
 
 const MeetingTypeList = () => {
   const router = useRouter();
@@ -106,7 +107,7 @@ const MeetingTypeList = () => {
         img={recordingIcons}
         title="View Recordings"
         description="Check out your recordings"
-        handleClick={() => setMeetingState('isJoiningMeeting')}
+        handleClick={() => router.push('/recordings')}
         className="bg-purple-1"
       />
 
@@ -186,6 +187,22 @@ const MeetingTypeList = () => {
         buttonText="Start Meeting"
         handleClick={createMeeting}
       />
+
+      <MeetingModal
+        isOpen={meetingState === 'isJoiningMeeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Type the link here"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(values.link)}
+      >
+        <div className="mb-5">
+          <Input
+            placeholder="Meeting Link"
+            className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+            onChange={(e) => setValues({ ...values, link: e.target.value })}
+          />
+        </div>
+      </MeetingModal>
     </section>
   );
 };
